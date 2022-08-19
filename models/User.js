@@ -41,7 +41,7 @@ const UserSchema = new Schema(
 );
 
 // creates virtual property that retrieves the length of user's friends
-UsersSchema.virtual("friendCount").get(function () {
+UserSchema.virtual("friendCount").get(function () {
   return this.friends.length;
 });
 
