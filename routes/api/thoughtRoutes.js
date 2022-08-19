@@ -14,9 +14,9 @@ const {
 // /api/thoughts <GET>
 router.route("/").get(getThoughts);
 
-// /api/thoughts/:id <GET, PUT, DELETE>
+// /api/thoughts/:thoughtId <GET, PUT, DELETE>
 router
-  .route("/:id")
+  .route("/:thoughtId")
   .get(getSingleThought)
   .put(updateThought)
   .delete(deleteThought);

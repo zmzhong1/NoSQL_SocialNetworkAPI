@@ -11,9 +11,6 @@ const userController = {
   // Get a single user by its _id
   getSingleUser({ params }, res) {
     User.findOne({ _id: params.id })
-      .populate({ path: "thoughts", select: "-__v" })
-      .populate({ path: "friends", select: "-__v" })
-      .select("-__v")
       .then((userData) =>
         !userData
           ? res.status(404).json({ message: "No user with that ID" })
@@ -38,7 +35,7 @@ const userController = {
           res.status(404).json({ message: "No user with that ID" });
           return;
         }
-        res.json(dbUserData);
+        res.json(userData);
       })
       .catch((err) => res.status(400).json(err));
   },
@@ -61,8 +58,6 @@ const userController = {
       { $push: { friends: params.friendId } },
       { new: true }
     )
-      .populate({ path: "friends", select: "-__v" })
-      .select("-__v")
       .then((userData) => {
         if (!userData) {
           res.status(404).json({ message: "No user with that ID" });
@@ -79,8 +74,7 @@ const userController = {
       { $pull: { friends: params.friendId } },
       { new: true }
     )
-      .populate({ path: "friends", select: "-__v" })
-      .select("-__v")
+
       .then((userData) => {
         if (!userData) {
           res.status(404).json({ message: "No user with that ID" });
